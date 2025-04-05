@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Awesome Interactive Site</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      background: linear-gradient(135deg, #6e8efb, #a777e3);
+      color: #fff;
+    }
+
+    h1 {
+      margin-bottom: 20px;
+      font-size: 2.5rem;
+    }
+
+    .card {
+      width: 300px;
+      height: 200px;
+      perspective: 1000px;
+      margin-bottom: 30px;
+    }
+
+    .inner-card {
+      width: 100%;
+      height: 100%;
+      transition: transform 0.8s;
+      transform-style: preserve-3d;
+      position: relative;
+    }
+
+    .card:hover .inner-card {
+      transform: rotateY(180deg);
+    }
+
+    .front, .back {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      backface-visibility: hidden;
+      border-radius: 15px;
+      padding: 20px;
+      box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+    }
+
+    .front {
+      background-color: #fff;
+      color: #333;
+    }
+
+    .back {
+      background-color: #ff6b6b;
+      color: white;
+      transform: rotateY(180deg);
+    }
+
+    input, button {
+      padding: 10px;
+      margin: 5px;
+      border-radius: 8px;
+      border: none;
+      font-size: 1rem;
+    }
+
+    button {
+      background-color: #fff;
+      color: #333;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+
+    button:hover {
+      background-color: #f1f1f1;
+    }
+
+    .message {
+      margin-top: 20px;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <h1>🌟 Welcome to AwesomeSite 🌟</h1>
+
+  <div class="card">
+    <div class="inner-card">
+      <div class="front">
+        <h2>Hello There!</h2>
+        <p>Hover me to see more 👀</p>
+      </div>
+      <div class="back">
+        <h2>Surprise! 🎉</h2>
+        <p>You found the back side!</p>
+      </div>
+    </div>
+  </div>
+
+  <input type="text" id="nameInput" placeholder="Enter your name" />
+  <button onclick="showMessage()">Say Hi 👋</button>
+
+  <div class="message" id="greetingMessage"></div>
+
+  <script>
+    function showMessage() {
+      const name = document.getElementById('nameInput').value.trim();
+      const msgDiv = document.getElementById('greetingMessage');
+      if (name) {
+        msgDiv.textContent = `Hey ${name}! You're awesome 😎`;
+      } else {
+        msgDiv.textContent = 'Please enter your name!';
+      }
+    }
+  </script>
+</body>
+</html>
