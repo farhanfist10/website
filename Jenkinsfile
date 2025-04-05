@@ -11,11 +11,12 @@ pipeline {
         stage('Deploy to Slaves') {
             steps {
                 script {
+                    def pemKeyPath = "/home/ec2-user/pro.pem"
                     def slaves = ["172.31.89.190", "172.31.95.146"]
                     for (slave in slaves) {
                         sh """
                             echo "Deploying to ${slave}"
-                            scp -i /home/jenkins/.ssh/id_rsa -o StrictHostKeyChecking=no index.html ec2-user@${slave}:/var/www/html/index.html
+                            scp -i ${pemKeyPath} -o StrictHostKeyChecking=no index.html ec2-user@${slave}:/var/www/html/index.html
                         """
                     }
                 }
