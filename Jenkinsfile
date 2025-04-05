@@ -2,20 +2,23 @@ pipeline {
     agent any
 
     stages {
-        stage('Clone Website Repo') {
+        stage('Clone Repo') {
             steps {
-                git 'https://github.com/farhanfist10/website.git'
+                git url: 'https://github.com/farhanfist10/website.git', branch: 'main'
             }
         }
 
-        stage('Deploy to Slave via Ansible') {
+        stage('Deploy to Slaves') {
             steps {
-                sh '''
-                mkdir -p ${WORKSPACE}/deploy
-                cp ${WORKSPACE}/index.html ${WORKSPACE}/deploy/
-                cd ${WORKSPACE}/deploy
-                ansible-playbook -i ${WORKSPACE}/slaves.txt ${WORKSPACE}/deploy.yaml
-                '''
+                script {
+                    def slaves = ["172.31.89.190", "172.31.95.146"]
+                    for (slave in slaves) {
+                        sh """
+                            echo "Deploying to ${slave}"
+                            scp -i /home/jenkins/.ssh/id_rsa -o StrictHostKeyChecking=no index.html ec2-user@${slave}:/var/www/html/index.html
+                        """
+                    }
+                }
             }
         }
     }
