@@ -11,7 +11,7 @@ pipeline {
         stage('Deploy to Slaves') {
             steps {
                 script {
-                    def pemKeyPath = "/home/ec2-user/pro.pem"
+                    def pemKeyPath = "/var/lib/jenkins/.ssh/pro.pem"
                     def slaves = ["172.31.89.190", "172.31.95.146"]
                     for (slave in slaves) {
                         sh """
